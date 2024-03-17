@@ -1,12 +1,12 @@
 ![baner](https://github.com/Ghosts6/Local-website/blob/main/img/Baner.png)
 
-# Convert_pdf_to_wordWithPython
+# 💻Convert_pdf_to_wordWithPython
 today im gonna review python porgrams  that i write with help of python and its model to convert pdf to word and etc,
 first we hvae pdf_to_wordv1 which is use aspose.words model to convert pdf file in this method we add require def as a 
 convert for simplify our work and with help of that at first we load pdf file then we save it as word,also we provide
 convert.py which can convert more then one format in fact it can support foramt type like xml pdf word and txt.
 
-# pdf_to_wordv1.py
+# 📝pdf_to_wordv1.py
 #🚨hint! 
 
 this method use to convert data into image and save it in word file so it keep details but we cant edit it
@@ -18,7 +18,7 @@ doc = convert.Document("Input.pdf")
 # save loaded file as word file
 doc.save("Output.docx
 ```
-# pdf_to_wordv2.py
+# 🔧pdf_to_wordv2.py
 
 for second program we try different way in this method we need to install some python file with help of pip:
 1PyMuPDF 2python-docx
