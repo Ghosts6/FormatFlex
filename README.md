@@ -1,10 +1,94 @@
 ![baner](https://github.com/Ghosts6/Local-website/blob/main/img/Baner.png)
 
-# 💻Convert_pdf_to_wordWithPython
+# 💻FormatFlex
+
 today im gonna review python porgrams  that i write with help of python and its model to convert pdf to word and etc,
 first we hvae pdf_to_wordv1 which is use aspose.words model to convert pdf file in this method we add require def as a 
 convert for simplify our work and with help of that at first we load pdf file then we save it as word,also we provide
 convert.py which can convert more then one format in fact it can support foramt type like xml pdf word and txt.
+
+# 🖥️Convert excel to xml:
+
+Here we have programs that i write with  python to convert excel fille to xml i also create custome one to create xml file which is use for telephone phonebook
+for this work we write three differend program include:Convert_xlsx_to_xlm_v1.py,Convert_xlsx_to_xlm_v2.py and Convert excel to phonebook.xlm.py
+
+```python
+import  jpype     
+import  asposecells     
+jpype.startJVM() 
+from asposecells.api import Workbook
+workbook = Workbook("phonebook01.xlsx")
+workbook.save("phonebook01.xml")
+jpype.shutdownJVM()
+```
+#convert excel to xml v2:
+
+```python
+from openpyxl import load_workbook
+import xml.etree.ElementTree as ET
+
+def excel_to_xml(excel_file, xml_file):
+    
+    wb = load_workbook(excel_file)
+    sheet = wb.active
+    
+    # Create the XML 
+    root = ET.Element('data')
+    
+    for row in sheet.iter_rows(values_only=True):
+        record = ET.SubElement(root, 'record')
+        for value in row:
+            ET.SubElement(record, 'item').text = str(value) if value is not None else ''
+    
+    tree = ET.ElementTree(root)
+    
+    tree.write(xml_file, encoding='utf-8', xml_declaration=True)
+
+excel_input_file = 'input.xlsx'
+
+xml_output_file = 'output.xml'
+
+
+excel_to_xml(excel_input_file, xml_output_file)
+```
+#convert phonebook.xlsx to xml
+
+```python
+import pandas as pd
+import xml.etree.ElementTree as ET
+
+# Read the Excel 
+excel_file = 'your_excel_file.xlsx'  # Replace with your Excel file name
+data = pd.read_excel(excel_file)
+
+# Define updated default values
+default_values = {
+    'line': '0',
+    'ring': 'Auto',
+    'group_id_name': 'all contacts',
+    'default_photo': 'Default:default_contact_image.png',
+    'other_number': '', 
+    'auto_divert': ''    
+}
+
+# Create the XML structure
+root = ET.Element('phonebook')
+
+# Iterate through the Excel data and create XML elements
+for _, row in data.iterrows():
+    contact = ET.SubElement(root, 'contact')
+    for col in ['display_name', 'display_number', 'mobil', 'other_number', 'auto_divert']:
+        value = str(row[col]) if not pd.isnull(row[col]) else default_values.get(col, '')
+        ET.SubElement(contact, col).text = value
+
+# Create the XML
+tree = ET.ElementTree(root)
+
+# Save XML 
+xml_output_file = 'phonebook.xml' 
+tree.write(xml_output_file, encoding='utf-8', xml_declaration=True)
+```
+
 
 # 📝pdf_to_wordv1.py
 #🚨hint! 
