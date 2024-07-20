@@ -2,10 +2,15 @@
 
 # 💻FormatFlex
 
-today im gonna review python porgrams  that i write with help of python and its model to convert pdf to word and etc,
-first we hvae pdf_to_wordv1 which is use aspose.words model to convert pdf file in this method we add require def as a 
-convert for simplify our work and with help of that at first we load pdf file then we save it as word,also we provide
-convert.py which can convert more then one format in fact it can support foramt type like xml pdf word and txt.
+Today, I'm going to review Python programs that I wrote with the help of Python and its libraries to convert files between various formats. The repository includes several conversion tools, such as:
+
+1. **pdf_to_word**: Utilizes the Aspose.Words library to convert PDF files to Word documents. This method simplifies our work by defining a `convert` function that loads a PDF file and saves it as a Word document.
+
+2. **convert_xlsx_to_xml**: Converts Excel files (XLSX format) to XML format, making it easier to work with Excel data in XML-based systems.
+
+3. **convert.py**: A versatile script that can handle multiple format conversions, including XML, PDF, Word, and TXT.
+
+Additionally, we have a dedicated program for converting PSD files to PNG format
 
 # 🖥️Convert excel to xml:
 
