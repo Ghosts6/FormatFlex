@@ -117,24 +117,20 @@ import fitz
 from docx import Document
 
 def pdf_to_word(pdf_path, word_path):
-    # Open the PDF file
+
     pdf_document = fitz.open(pdf_path)
-    
-    # Create word file
+
     doc = Document()
     
     for page_num in range(pdf_document.page_count):
         page = pdf_document.load_page(page_num)
         text = page.get_text("text")
-        
-        # Write data in word file
+
         doc.add_paragraph(text)
-    
-    # Save file
+
     doc.save(word_path)
     print(f"PDF converted to Word: {word_path}")
 
-# Replace 'input_file.pdf' and 'output_file.docx' with your file paths
 pdf_to_word('input_file.pdf', 'output_file.docx')
 ```
 # 📏Convert_program:
@@ -391,3 +387,94 @@ elif choice == "txt":
 else:
     print("Invalid input file type. Please select xml/pdf/word/txt.")
 ```
+# 🖼️ PSD to PNG Conversion Program
+
+This program converts PSD files to PNG format with ease. It traverses directories, converts all PSD files it finds, and saves the converted PNG files in a specified output directory. The program also includes robust error handling and logging to ensure smooth operation even when encountering problematic files.
+
+## ✨ Features
+
+- 🚀 **Automated Conversion:** Convert all PSD files in a directory and its subdirectories to PNG format.
+- 📂 **Directory Handling:** Organizes converted PNG files in the specified output directory, mirroring the original directory structure.
+- 🛠️ **Error Handling:** Continues processing remaining files even if some conversions fail.
+- 📄 **Logging:** Logs errors and successful conversions to a `log.txt` file in the output directory for easy troubleshooting.
+
+## 🛠️ Requirements
+
+Make sure you have the following Python libraries installed:
+- `Pillow`
+- `psd_tools`
+
+You can install them using pip:
+```sh
+pip install pillow psd-tools
+```
+
+## 📝 Example Code
+```python
+from PIL import Image
+import psd_tools
+import os
+import logging
+
+# logging
+def setup_logging(output_base_directory):
+    log_path = os.path.join(output_base_directory, 'log.txt')
+    logging.basicConfig(filename=log_path, level=logging.DEBUG, 
+                        format='%(asctime)s - %(levelname)s - %(message)s')
+
+def convert_psd_to_png(directory, output_base_directory):
+    for root, _, files in os.walk(directory):
+        for filename in files:
+            if filename.lower().endswith('.psd'):
+                file_path = os.path.join(root, filename)
+                try:
+                    psd = psd_tools.PSDImage.open(file_path)
+                    composite = psd.compose()
+
+                    relative_path = os.path.relpath(root, directory)
+                    output_directory = os.path.join(output_base_directory, relative_path)
+                    os.makedirs(output_directory, exist_ok=True)
+
+                    png_path = os.path.join(output_directory, os.path.splitext(filename)[0] + '.png')
+                    composite.save(png_path)
+
+                    print(f"Converted {filename} to {png_path}")
+                    logging.info(f"Successfully converted {file_path} to {png_path}")
+                except Exception as e:
+                    print(f"Error converting {filename}: {e}")
+                    logging.error(f"Failed to convert {file_path}: {e}")
+
+def main():
+    while True:
+        directory = input("Enter the base directory path containing PSD files: ")
+        output_base_directory = os.path.join(directory, 'png')
+        os.makedirs(output_base_directory, exist_ok=True)
+        
+        setup_logging(output_base_directory)
+
+        convert_psd_to_png(directory, output_base_directory)
+
+        continue_choice = input("Do you want to convert files in another directory? (yes/no): ").strip().lower()
+        if continue_choice != 'yes':
+            break
+
+if __name__ == "__main__":
+    main()
+```
+# 🚀 Usage
+Clone the Repository:
+```sh
+git clone https://github.com/yourusername/psd-to-png-converter.git
+cd psd-to-png-converter
+```
+Run the Program:
+```sh
+#example
+python3 psd_to_png.py
+```
+Follow the Prompts:
+
+# 📬 Contact
+For any questions or suggestions, please open an issue or contact us at kiarash@kiarashbashokian.com 
+
+# Happy converting! 🎉
